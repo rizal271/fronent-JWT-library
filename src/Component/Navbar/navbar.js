@@ -1,4 +1,6 @@
 import React, { Component, Fragment } from "react";
+import isEmpty from 'lodash.isempty';
+import { currentLogin } from "../../Global/redux/actions/login";
 import {
   Collapse,
   Navbar,
@@ -7,6 +9,7 @@ import {
   Nav,
   NavLink
 } from "reactstrap";
+import swal from 'sweetalert';
 
 class NavbarComponent extends React.Component {
   constructor(props) {
@@ -21,6 +24,12 @@ class NavbarComponent extends React.Component {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  }
+  logout = () =>{
+    swal({
+        title: "Maaf Fitur ini Sedang Masa Perbaikan",
+        icon: "warning",
+      })
   }
   render() {
     const level = localStorage.getItem("level");
@@ -38,24 +47,59 @@ class NavbarComponent extends React.Component {
         </div>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            {level === "peminjam" ? (
-              <NavItem>
-                <NavLink href="/">Home-Peminjam</NavLink>
-                
-              </NavItem>
-              // <NavItem>
-              //    <NavLink href="/login">Login</NavLink>
-              // </NavItem>
-            ) : (
+            {(level === "peminjam" ) ? 
               <Fragment>
-              <NavItem>
-                <NavLink href="/">Home</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/login">Login</NavLink>
-              </NavItem>
+                <NavItem>
+                  <NavLink href="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/borrowing">Peminjaman</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="" onClick={() =>this.logout()}>Logout</NavLink>
+                </NavItem>
+              </Fragment>
+             : (
+              <Fragment>
+                
               </Fragment>
             )}
+            {level === "admin" ? (
+              <Fragment>
+                <NavItem>
+                  <NavLink href="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/book">Buku</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/category">Kategori</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/borrowing">Peminjaman</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/borrower">User</NavLink>
+                </NavItem>
+              </Fragment>
+            ) : (
+              <Fragment>
+                
+              </Fragment>
+            )}
+            {isEmpty(level) ? (
+              <Fragment>
+              <NavItem>
+                  <NavLink href="/">Home</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href="/login">Login</NavLink>
+                </NavItem>
+                </Fragment>
+            ) :(
+              <Fragment>
+              </Fragment>
+            ) }
             {/* // <NavItem>
             //   <NavLink href="/">Home</NavLink>
             // </NavItem>

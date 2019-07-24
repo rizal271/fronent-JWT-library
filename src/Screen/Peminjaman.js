@@ -29,9 +29,12 @@ class Peminjaman extends Component {
 
   
   componentDidMount = async () => {
-    await this.props.dispatch(getPeminjaman());
-    await this.props.dispatch(getBukuactive());
-    await this.props.dispatch(getPeminjam());
+    const token = localStorage.getItem("token")
+    const id = localStorage.getItem("id")
+    const level = localStorage.getItem("level")
+    await this.props.dispatch(getPeminjaman(token, id, level));
+    await this.props.dispatch(getBukuactive(token, id, level));
+    await this.props.dispatch(getPeminjam(token, id, level));
     console.log("ini dari props makan", this.props.history);
     this.setState({
       peminjamanlist: this.props.listpeminjaman.listPeminjaman.result,
