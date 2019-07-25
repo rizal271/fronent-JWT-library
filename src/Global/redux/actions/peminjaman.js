@@ -1,71 +1,48 @@
 import axios from "axios";
 let URL = 'http://localhost:3342'
 
-export const getPeminjaman = (token, id) => {
+export const getPeminjaman = () => {
   return {
     type: "GET_PEMINJAMAN",
-    payload: axios.get(URL+'/borrowing', {
-      headers: {
-        'authorization' : 'w3lc0meto4pp',
-        'x-access-token' : token,
-        'x-control-user': id
-      }
-    })
+    payload: axios.get(URL+'/borrowing')
   };
 };
 
-export const detailPeminjaman = (token, id) => {
+export const detailPeminjaman = (id) => {
   return {
     type: "DETAIL_PEMINJAMAN",
-    payload: axios.get(URL+`/borrowing/details/${id}`, {
-      headers: {
-        'authorization' : 'w3lc0meto4pp',
-        'x-access-token' : token,
-        'x-control-user': id
-      }
-    })
+    payload: axios.get(URL+`/borrowing/details/${id}`)
   };
 };
 
-export const kembaliPeminjaman = (token,id, data) => {
+export const getbyidUserPeminjaman = (id) => {
+  return {
+    type: "GET_BY_ID_USER_PEMINJAMAN",
+    payload: axios.get(URL+`/borrowing/getbyiduser/${id}`)
+  };
+};
+
+export const kembaliPeminjaman = (id, data) => {
   console.log('ini dari aksi',data);
   return {
     type: "KEMBALI_PEMINJAMAN",
-    payload: axios.patch(URL+`/borrowing/retruned/${id}`, data, {
-      headers: {
-        'authorization' : 'w3lc0meto4pp',
-        'x-access-token' : token,
-        'x-control-user': id
-      }
-    })
+    payload: axios.patch(URL+`/borrowing/retruned/${id}`, data)
   };
 };
 
-export const postPeminjaman = (token, id, data) => {
+export const postPeminjaman = (data) => {
   console.log('ini dari aksi',data[0]);
   return {
     type: "POST_PEMINJAMAN",
-    payload: axios.post(URL+'/borrowing', data[0], {
-      headers: {
-        'authorization' : 'w3lc0meto4pp',
-        'x-access-token' : token,
-        'x-control-user': id
-      }
-    })
+    payload: axios.post(URL+'/borrowing', data[0])
   };
 };
 
-export const deletePinjaman = (token, id, id_ktp) =>{
+export const deletePinjaman = (id_ktp) =>{
   console.log('action id', id_ktp)
 	return{
 		type: 'DELETE_PINJAMAN',
-		payload: axios.delete(URL +`/borrowing/${id_ktp}`, {
-      headers: {
-        'authorization' : 'w3lc0meto4pp',
-        'x-access-token' : token,
-        'x-control-user': id
-      }
-    })
+		payload: axios.delete(URL +`/borrowing/${id_ktp}`)
 	}
 }
 

@@ -5,7 +5,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
-import { registrasiPeminjam} from "../Global/redux/actions/peminjam";
+import { registrasiPeminjam} from "../../Global/redux/actions/peminjam"
 import '../assets/css/login.css'
 
 class Registrasi extends Component {

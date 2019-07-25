@@ -25,11 +25,8 @@ class Buku extends Component {
 
   
   componentDidMount = async () => {
-    const token = localStorage.getItem("token")
-    const id = localStorage.getItem("id")
-    const level = localStorage.getItem("level")
-    await this.props.dispatch(getBuku(token , id, level));
-    await this.props.dispatch(getKategori(token , id, level));
+    await this.props.dispatch(getBuku());
+    await this.props.dispatch(getKategori());
     console.log("ini dari props listbuku", this.props.listbuku);
     console.log("ini dari props list Kategori", this.props.listkategori);
     this.setState({

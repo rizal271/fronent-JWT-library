@@ -19,15 +19,12 @@ class Peminjam extends Component {
     modal: false,
     modaledit:false,
     idktp: '',
-    insertlist:[],
+    insertlist:[]
   };
+
   
   componentDidMount = async () => {
-    const token = localStorage.getItem("token")
-    const id = localStorage.getItem("id")
-    const level = localStorage.getItem("level")
-    console.log('ini token', token)
-    await this.props.dispatch(getPeminjam(token, id, level));
+    await this.props.dispatch(getPeminjam());
     console.log("ini dari props", this.props);
     this.setState({
       peminjamlist: this.props.listpeminjam.listPeminjam.result
@@ -48,7 +45,6 @@ class Peminjam extends Component {
       modaledit: !prevState.modal
     }));
   }
-  
   handledelete = (id_ktp) =>{
     console.log('coba id', id_ktp);
     swal({

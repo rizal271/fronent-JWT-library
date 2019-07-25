@@ -27,6 +27,26 @@ const initialState = {
           isFulfilled: true,
           listPeminjaman: action.payload.data
         };
+        case "GET_BY_ID_USER_PEMINJAMAN_PENDING":
+        return {
+          ...state,
+          isLoading: true,
+          isRejected: false,
+          isFulfilled: false
+        };
+      case "GET_BY_ID_USER_PEMINJAMAN_REJECTED":
+        return {
+          ...state,
+          isLoading: false,
+          isRejected: true
+        };
+      case "GET_BY_ID_USER_PEMINJAMAN_FULFILLED":
+        return {
+          ...state,
+          isLoading: false,
+          isFulfilled: true,
+          listPeminjaman: action.payload.data
+        };
         case "DETAIL_PEMINJAMAN_PENDING":
           return {
             ...state,

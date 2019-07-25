@@ -8,6 +8,4 @@ const logger = createLogger();
 
 const store = createStore(reducers, applyMiddleware(logger, promiseMiddleware));
 
-console.log('ini dari store',store)
-
 export default store;

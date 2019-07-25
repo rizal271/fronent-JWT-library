@@ -19,7 +19,7 @@ class DetailPeminjaman extends Component {
     await this.props.dispatch(detailPeminjaman(id_detail));
     console.log("ini dari props", this.props);
     this.setState({
-      detaillist: this.props.listpeminjam.listPeminjaman.result
+      detaillist: this.props.listpeminjam.listPeminjaman.result[0]
     });
   };
 
@@ -33,6 +33,7 @@ class DetailPeminjaman extends Component {
   
   render() {
     const list = this.state.detaillist;
+    console.log('ini list', list)
     console.log("taggal", moment().format("YYYY-MM-DD"));
     const tgl_denda = moment(list.tgl_kadaluarsa).format("YYYY-MM-DD");
     if (moment().format("YYYY-MM-DD") < tgl_denda) {
@@ -97,7 +98,7 @@ class DetailPeminjaman extends Component {
                     </div>
                   </div>
                   <div className="col-md-8">
-                    <h5>Judul : {list.nama_buku}</h5>
+                    <h5>Judul : {this.state.detaillist.nama_buku}</h5>
                     <p>Kategori : {list.nama_kategori}</p>
                     <p>
                       Description : Lorem ipsum dolor sit amet, consectetur

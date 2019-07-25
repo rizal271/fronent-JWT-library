@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from "react";
-import isEmpty from 'lodash.isempty';
+import isEmpty from "lodash.isempty";
 import { currentLogin } from "../../Global/redux/actions/login";
 import {
   Collapse,
@@ -9,7 +9,7 @@ import {
   Nav,
   NavLink
 } from "reactstrap";
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 class NavbarComponent extends React.Component {
   constructor(props) {
@@ -25,12 +25,17 @@ class NavbarComponent extends React.Component {
       isOpen: !this.state.isOpen
     });
   }
-  logout = () =>{
+  logout = () => {
+    localStorage.removeItem("token")
+    localStorage.removeItem("id")
+    localStorage.removeItem("level")
     swal({
-        title: "Maaf Fitur ini Sedang Masa Perbaikan",
-        icon: "warning",
-      })
-  }
+      title: "Berhasil",
+      icon: "success",
+      
+    });
+    
+  };
   render() {
     const level = localStorage.getItem("level");
     return (
@@ -47,7 +52,7 @@ class NavbarComponent extends React.Component {
         </div>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
-            {(level === "peminjam" ) ? 
+            {level === "peminjam" ? (
               <Fragment>
                 <NavItem>
                   <NavLink href="/">Home</NavLink>
@@ -56,13 +61,13 @@ class NavbarComponent extends React.Component {
                   <NavLink href="/borrowing">Peminjaman</NavLink>
                 </NavItem>
                 <NavItem>
-                  <NavLink href="" onClick={() =>this.logout()}>Logout</NavLink>
+                  <NavLink href="/" onClick={() => this.logout()}>
+                    Logout
+                  </NavLink>
                 </NavItem>
               </Fragment>
-             : (
-              <Fragment>
-                
-              </Fragment>
+            ) : (
+              <Fragment />
             )}
             {level === "admin" ? (
               <Fragment>
@@ -81,43 +86,27 @@ class NavbarComponent extends React.Component {
                 <NavItem>
                   <NavLink href="/borrower">User</NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink href="" onClick={() => this.logout()}>
+                    Logout
+                  </NavLink>
+                </NavItem>
               </Fragment>
             ) : (
-              <Fragment>
-                
-              </Fragment>
+              <Fragment />
             )}
             {isEmpty(level) ? (
               <Fragment>
-              <NavItem>
+                <NavItem>
                   <NavLink href="/">Home</NavLink>
                 </NavItem>
                 <NavItem>
                   <NavLink href="/login">Login</NavLink>
                 </NavItem>
-                </Fragment>
-            ) :(
-              <Fragment>
               </Fragment>
-            ) }
-            {/* // <NavItem>
-            //   <NavLink href="/">Home</NavLink>
-            // </NavItem>
-            // <NavItem>
-            //   <NavLink href="/book">Buku</NavLink>
-            // </NavItem>
-            // <NavItem>
-            //   <NavLink href="/category">Kategori</NavLink>
-            // </NavItem>
-            // <NavItem>
-            //   <NavLink href="/borrowing">Peminjaman</NavLink>
-            // </NavItem>
-            // <NavItem>
-            //   <NavLink href="/borrower">User</NavLink>
-            // </NavItem>
-            // <NavItem>
-            //   <NavLink href="/login">Login</NavLink>
-            // </NavItem> */}
+            ) : (
+              <Fragment />
+            )}
           </Nav>
         </Collapse>
       </Navbar>

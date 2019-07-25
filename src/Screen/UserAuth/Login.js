@@ -6,7 +6,7 @@ import {
 import { Link } from "react-router-dom";
 import swal from 'sweetalert';
 import "../assets/css/login.css";
-import { currentLogin } from "../Global/redux/actions/login";
+import { currentLogin } from "../../Global/redux/actions/login";
 
 class Login extends Component {
   state = {

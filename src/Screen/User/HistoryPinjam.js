@@ -13,9 +13,9 @@ import MaterialTable from 'material-table';
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { getPeminjaman, deletePinjaman, postPeminjaman} from "../Global/redux/actions/peminjaman";
-import { getPeminjam} from "../Global/redux/actions/peminjam";
-import {getBukuactive} from "../Global/redux/actions/buku"
+import { getbyidUserPeminjaman, getPeminjaman, deletePinjaman, postPeminjaman} from "../../Global/redux/actions/peminjaman";
+import { getPeminjam} from "../../Global/redux/actions/peminjam";
+import {getBukuactive} from "../../Global/redux/actions/buku"
 
 class Peminjaman extends Component {
   state = {
@@ -29,7 +29,8 @@ class Peminjaman extends Component {
 
   
   componentDidMount = async () => {
-    await this.props.dispatch(getPeminjaman());
+    const id_user = localStorage.getItem("id")
+    await this.props.dispatch(getbyidUserPeminjaman(id_user));
     await this.props.dispatch(getBukuactive());
     await this.props.dispatch(getPeminjam());
     console.log("ini dari props makan", this.props.history);
@@ -121,15 +122,8 @@ class Peminjaman extends Component {
     return (
       <div className="container">
         <div className="row mt-5 justify-content-md-center">
-          <h1>Data Peminjaman Buku</h1>
+          <h1>History Peminjaman Buku</h1>
         </div>
-        <Button className="btn btn-info btn-sm" onClick={this.toggle}>
-          {" "}
-          <i className="fa fa-plus" title="add">
-            {" "}
-            Tambah Data
-          </i>
-        </Button>
         <div className="row mt-5 justify-content-md-center">
         <MaterialTable
         title="Data Peminjaman Buku"
@@ -160,12 +154,6 @@ class Peminjaman extends Component {
         // data={[
         //   { nama_peminjam: list.nama_peminjam, nama_buku: list.nama_buku, tgl_pinjam: list.tgl_pinjam, lama_pinjam: lama, status: status_pinjam}]}
         actions={ [
-            { 
-              className: 'btn btn-danger btn-sm',
-              icon: 'edit',
-              tooltip: 'edit',
-              onClick: () =>this.handleupdate()
-            },
             {   
               className: 'btn btn-danger btn-sm',
               icon: 'details',
