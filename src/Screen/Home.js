@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import getHome from "../Global/redux/actions/home";
+import Axios from "axios";
 
 class Home extends Component {
   state = {
@@ -15,6 +16,19 @@ class Home extends Component {
       bookhome: this.props.listbookhome.listBuku.result
     });
   };
+  search = () => {
+    let name = this.refs.input.value
+    Axios.get('http://localhost:3342/library?q=' + name)
+    .then((res) => {
+        this.setState({bookhome : res.data})
+        if(name === "") {
+            this.getAllBook()
+        }
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+}
   render() {
     const list = this.state.bookhome;
     console.log("ini dari list", list);
@@ -27,6 +41,7 @@ class Home extends Component {
               ref="input"
               type="text"
               placeholder="Search..."
+              onChange={this.search}
             />
           </div>
         </div>

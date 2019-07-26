@@ -84,7 +84,7 @@ class Login extends Component {
                   <div className="custom-control mt-3">
                     <label className="control-label">
                       Belum punya akun Perpustakaan?{" "}
-                      <Link to="/registrasi">
+                      <Link to="/register">
                         <b>Daftar</b>
                       </Link>
                     </label>

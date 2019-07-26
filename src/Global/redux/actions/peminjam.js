@@ -1,10 +1,21 @@
 import axios from "axios";
 let URL = 'http://localhost:3342'
 
+let token = localStorage.getItem("token")
+let id = localStorage.getItem("id")
+let auth ={
+  'authorization' : 'w3lc0meto4pp',
+  'x-access-token' : token,
+  'x-control-user': id
+}
+
+
 export const getPeminjam = () => {
   return {
     type: "GET_PEMINJAM",
-    payload: axios.get(URL+'/borrower')
+    payload: axios.get(URL+'/borrower', {
+      headers: auth
+    })
   };
 };
 
@@ -13,7 +24,9 @@ export const postPeminjam = (data) => {
   // {id_ktp:data[0].id_ktp, nama_peminjam: data[0].nama_peminjam, alamat: data[0].alamat}
   return {
     type: "POST_PEMINJAM",
-    payload: axios.post(URL+'/borrower', data[0])
+    payload: axios.post(URL+'/borrower', data[0], {
+      headers: auth
+    })
   };
 };
 
@@ -30,7 +43,9 @@ export const deletePinjam = (id_ktp) =>{
   console.log('action id', id_ktp)
 	return{
 		type: 'DELETE_PINJAM',
-		payload: axios.delete(URL +`/borrower/${id_ktp}`)
+		payload: axios.delete(URL +`/borrower/${id_ktp}`, {
+      headers: auth
+    })
 	}
 }
 
