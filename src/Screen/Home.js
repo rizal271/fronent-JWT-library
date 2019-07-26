@@ -45,7 +45,7 @@ class Home extends Component {
                     className="card text-white bg-info"
                     style={{ width: "15rem" }}
                   >
-                    <Link to={"/bookDetail/"}>
+                    <Link to={`/buku/detail/${val.id_buku}`}>
                       <img src={val.gbr} style={{height: '180px'}} className="card-img-top cardHome" alt="..." />
                     </Link>
                     <h5>

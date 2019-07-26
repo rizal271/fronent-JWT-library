@@ -8,6 +8,13 @@ export const getBuku = () => {
   };
 };
 
+export const getdetailBuku = (id) => {
+  return {
+    type: "GET_DETAIL_BUKU",
+    payload: axios.get(URL+`/book/detail/${id}`)
+  };
+};
+
 export const getBukuactive = () => {
   return {
     type: "GET_BUKU_ACTIVE",

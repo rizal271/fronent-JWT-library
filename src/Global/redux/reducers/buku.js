@@ -27,6 +27,26 @@ const initialState = {
           isFulfilled: true,
           listBuku: action.payload.data
         };
+        case "GET_DETAIL_BUKU_PENDING":
+        return {
+          ...state,
+          isLoading: true,
+          isRejected: false,
+          isFulfilled: false
+        };
+      case "GET_DETAIL_BUKUL_REJECTED":
+        return {
+          ...state,
+          isLoading: false,
+          isRejected: true
+        };
+      case "GET_DETAIL_BUKU_FULFILLED":
+        return {
+          ...state,
+          isLoading: false,
+          isFulfilled: true,
+          listBuku: action.payload.data.result[0]
+        };
         case "GET_BUKU_ACTIVE_PENDING":
           return {
             ...state,

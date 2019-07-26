@@ -13,6 +13,7 @@ import Registrasi from "./Screen/UserAuth/Registrasi";
 import DetailPeminjaman from "./Screen/DetailPeminjaman";
 import React, { Component, Fragment } from "react";
 import History from "./Screen/User/HistoryPinjam"
+import detailBook from "./Screen/DetailBuku"
 
 function App() {
   const level = localStorage.getItem("level");
@@ -21,6 +22,7 @@ function App() {
       <div>
         <Nav />
         <Route exact path={"/"} component={Home} />
+        <Route exact path={"/buku/detail/:id"} component={detailBook} />
         <Route exact path={"/login"} component={login} />
         <Route exact path={"/register"} component={Registrasi} />
         {level === "peminjam" ? (
