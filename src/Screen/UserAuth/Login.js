@@ -21,16 +21,23 @@ class Login extends Component {
       console.log(this.state.userlogin);
       const datalogin = this.state.userlogin;
       // this.props.userLoginFetch(datalogin)
-      this.props.dispatch(currentLogin(datalogin));
-      // localStorage.setItem("token", data.token)
-      console.log('ini props', this.props);
+      this.props.dispatch(currentLogin(datalogin)).then(() =>{
+        swal({
+          title: "Login Berhasil",
+          icon: "success"
+        })
+          this.props.history.push(`/`);
+      }).catch(()=>{
+        swal({
+          title: "Login Gagal Username & Password Salah",
+          icon: "warning"
+        })
+          this.props.history.push(`/`);
+      })
+     
       
-      swal({
-        title: "Login Berhasil",
-        icon: "success"
-      }).then(() => {
-        this.props.history.push(`/`);
-      });
+      
+      
     };
     return (
       <div className="container">
