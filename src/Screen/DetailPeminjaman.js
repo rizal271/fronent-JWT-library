@@ -30,10 +30,9 @@ class DetailPeminjaman extends Component {
   //     })
   // }
 
-  
   render() {
     const list = this.state.detaillist;
-    console.log('ini list', list)
+    console.log("ini list", list);
     console.log("taggal", moment().format("YYYY-MM-DD"));
     const tgl_denda = moment(list.tgl_kadaluarsa).format("YYYY-MM-DD");
     if (moment().format("YYYY-MM-DD") < tgl_denda) {
@@ -42,36 +41,35 @@ class DetailPeminjaman extends Component {
       var dendaTelat = "3000";
     }
 
-    if(list.tgl_kembali === "0000-00-00") {
-        var btn = "btn btn-danger mb-3"
-        var btnproperty = "Kembali"
-        var warnakadaluarsa = "alert alert-danger text-center"
-        var didenda = `${tgl_denda}`
-        var peringatan = "Buku Harus Kembali Sebelum"
-
-    }else {
-      var btn = "btn btn-success mb-3"
-      var btnproperty = "Sudah di rak"
-      var warnakadaluarsa = "alert alert-success text-center"
-      var peringatan = "Buku Telah Kembali Pada"
-      var didenda = moment(list.tgl_kembali).format("YYYY-MM-DD")
+    if (list.tgl_kembali === "0000-00-00") {
+      var btn = "btn btn-danger mb-3";
+      var btnproperty = "Kembali";
+      var warnakadaluarsa = "alert alert-danger text-center";
+      var didenda = `${tgl_denda}`;
+      var peringatan = "Buku Harus Kembali Sebelum";
+    } else {
+      var btn = "btn btn-success mb-3";
+      var btnproperty = "Sudah di rak";
+      var warnakadaluarsa = "alert alert-success text-center";
+      var peringatan = "Buku Telah Kembali Pada";
+      var didenda = moment(list.tgl_kembali).format("YYYY-MM-DD");
     }
 
-    console.log(list.id_buku)
-    const handleupdate = () =>{
+    console.log(list.id_buku);
+    const handleupdate = () => {
       const data = {
-        id_buku:list.id_buku,
+        id_buku: list.id_buku,
         denda: dendaTelat
-      }
+      };
       this.props.dispatch(kembaliPeminjaman(this.props.match.params.id, data));
       swal({
         title: "Buku Telah Berhasil Kembali Ke Rak",
-        icon: "success",
-      }).then(()=>{
-        this.props.history.push(`/borrowing`)
-      })
-      
-    }
+        icon: "success"
+      }).then(() => {
+        this.props.history.push(`/borrowing`);
+      });
+    };
+    const level = localStorage.getItem("level");
     return (
       <div className="container">
         <div className="row mt-5 mb-5">
@@ -128,22 +126,25 @@ class DetailPeminjaman extends Component {
                 {list.id_ktp + " || " + list.nama_peminjam}
               </div>
               <div className="card-body mt-3">
-      <h5 className="card-title" style={{ color: "yellow" }}>
-        Denda : Rp.{dendaTelat}
-      </h5>
-      <Button
-        className={btn}
-        onClick={handleupdate.bind(this)}
-      >
-        {btnproperty}
-      </Button>
-      <div className={warnakadaluarsa} role="alert">
-        <p className="card-text">{peringatan}</p>
-        {didenda}
-      </div>
-    </div>
+                <h5 className="card-title" style={{ color: "yellow" }}>
+                  Denda : Rp.{dendaTelat}
+                </h5>
+                {level == "admin" ? (
+                  <Button className={btn} onClick={handleupdate.bind(this)}>
+                    {btnproperty}
+                  </Button>
+                ) : (
+                  <Button className={btn} disabled>
+                    {btnproperty}
+                  </Button>
+                )}
+
+                <div className={warnakadaluarsa} role="alert">
+                  <p className="card-text">{peringatan}</p>
+                  {didenda}
+                </div>
+              </div>
             </div>
-            
           </div>
         </div>
       </div>
